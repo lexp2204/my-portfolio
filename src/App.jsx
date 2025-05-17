@@ -1,8 +1,10 @@
 import React from 'react'
 import Nav from './Components/Nav'
 import Hero from './Components/Hero'
-import './App.css'
 import About from './Components/About'
+import Projects from './Components/Projects'
+import TechStackBanner from './Components/TeckStackBanner'
+import './App.css'
 
 function App() {
  
@@ -12,6 +14,8 @@ function App() {
       <Nav />
       <Hero />
       <About />
+      <TechStackBanner />
+      <Projects />
     </>
   )
 }
