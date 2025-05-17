@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import projects from "/src/projectsData.js"; // Adjust path accordingly
+import projects from "/src/projectsData.js";
 
 export default function ProjectCarousel() {
   const [startIndex, setStartIndex] = useState(0);

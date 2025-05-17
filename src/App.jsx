@@ -4,6 +4,8 @@ import Hero from './Components/Hero'
 import About from './Components/About'
 import Projects from './Components/Projects'
 import TechStackBanner from './Components/TeckStackBanner'
+import Contact from './Components/Contact'
+import Footer from './Components/Footer'
 import './App.css'
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
       <About />
       <TechStackBanner />
       <Projects />
+      <Contact />
+      <Footer />
     </>
   )
 }
