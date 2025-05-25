@@ -11,12 +11,12 @@ const techStack = [
   "/assets/express.svg",
   "/assets/php.svg",
   "/assets/postgres.svg",
-  "/assets/mongodb.svg"
+  "/assets/mongodb.svg",
 ];
 
 export default function TechStackBanner() {
   return (
-    <div className="overflow-hidden py-1 bg-[#4D4D4D]">
+    <div className="overflow-hidden py-2 bg-[#4D4D4D]">
       <motion.div
         className="flex w-[200%]"
         animate={{ x: ["0%", "-50%"] }}
@@ -27,13 +27,16 @@ export default function TechStackBanner() {
         }}
       >
         {[0, 1].map((_, i) => (
-          <div key={i} className="flex justify-evenly w-full">
+          <div
+            key={i}
+            className="flex justify-evenly items-center w-full gap-6 sm:gap-10"
+          >
             {techStack.map((src, idx) => (
               <img
                 key={`${i}-${idx}`}
                 src={src}
                 alt="tech-icon"
-                className="h-8 w-8 object-contain"
+                className="h-6 w-6 sm:h-8 sm:w-8 object-contain"
               />
             ))}
           </div>

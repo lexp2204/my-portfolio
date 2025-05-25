@@ -3,8 +3,7 @@ const projects = [
     title: "Crime Map",
     description: [
       "My 2 teammates and I developed a web application that enables users to anonymously report and tag crimes on an interactive map.",
-      "We designed a streamlined reporting system using dropdown menus, allowing for quick and efficient crime submissions.",
-      "Leverages the Google Maps API for real-time mapping",
+      "Leverages the Google Maps API for real-time mapping"
     ],
     image:"/images/crimemap.png",
     liveLink: "https://not-live-yet.com",
@@ -39,8 +38,7 @@ const projects = [
     title: "Job & Intership Portal",
     description:  [
       "Built a full-stack web application that connects job seekers with employers through real-time job and internship listings.",
-      "Engineered RESTful APIs with Node.js and Express.js, and integrated PostgreSQL for relational data modeling, storage, and efficient query handling.",
-      "Designed using Figma."
+      "Engineered RESTful APIs with Node.js and Express.js, and integrated PostgreSQL for relational data modeling, storage, and efficient query handling."
     ],
     image:"/images/landing.png",
     liveLink: "https://not-live-yet.com",

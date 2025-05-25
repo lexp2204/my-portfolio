@@ -1,61 +1,107 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 import projects from "/src/projectsData.js";
 
-export default function ProjectCarousel() {
-  const [startIndex, setStartIndex] = useState(0);
-  const itemsPerPage = 3;
+export default function Projects() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); 
 
   const handlePrev = () => {
-    setStartIndex((prev) => Math.max(prev - itemsPerPage, 0));
-  };
-
-  const handleNext = () => {
-    setStartIndex((prev) =>
-      Math.min(prev + itemsPerPage, projects.length - itemsPerPage)
+    setDirection(-1);
+    setCurrentIndex((prev) =>
+      prev === 0 ? projects.length - 1 : prev - 1
     );
   };
 
-  const visibleProjects = projects.slice(startIndex, startIndex + itemsPerPage);
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) =>
+      prev === projects.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction) => ({
+      x: direction > 0 ? -300 : 300,
+      opacity: 0,
+    }),
+  };
+
+  const project = projects[currentIndex];
 
   return (
-    <div id="projects" className="font-['Ubuntu_Sans_Mono'] relative w-full bg-[#0C0C16] text-white py-10">
-      <h2 className="text-2xl text-white pb-15 px-25 mb-8"> My Projects</h2>
+    <div
+      id="projects"
+      className="font-['Ubuntu_Sans_Mono'] w-full bg-[#0C0C16] text-white py-12 px-4 flex flex-col items-center"
+    >
+      <h2 className="text-2xl text-white mb-8 text-center">My Projects</h2>
 
-      <div className="flex justify-center items-center gap-6 px-4">
+      <div className="flex items-center gap-4 w-full justify-center max-w-xl">
         {/* Left Arrow */}
-        <button onClick={handlePrev} className="text-white text-2xl hover:text-purple-500">
+        <button
+          onClick={handlePrev}
+          className="text-white text-2xl hover:text-purple-500"
+        >
           <FaArrowLeft />
         </button>
 
-        {/* Project Cards */}
-        <div className="flex gap-28">
-          {visibleProjects.map((project, index) => (
-            <div key={index} className=" border-1 border-[#9013FE] bg-[#0C0C16] relative flex flex-col rounded-2xl p-5 w-[300px] h-[590px] shadow-lg">
-              <div className="w-full h-32 bg-[#2C2C3E] rounded-xl overflow-hidden flex items-center justify-center mb-4">
-                <img src={project.image} alt={`${project.title} screenshot`} className="h-full w-full object-cover object-bottom"/>
+        {/* Animated Project Card */}
+        <div className="w-[90%] sm:w-[350px] md:w-[400px] h-[610px] relative overflow-hidden">
+          <AnimatePresence custom={direction} mode="wait">
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="absolute top-0 left-0 right-0 bottom-0 border border-[#9013FE] bg-[#0C0C16] rounded-2xl p-5 shadow-lg"
+            >
+              <div className="w-full h-40 bg-[#2C2C3E] rounded-xl overflow-hidden flex items-center justify-center mb-4">
+                <img
+                  src={project.image}
+                  alt={`${project.title} screenshot`}
+                  className="h-full w-full object-cover object-bottom"
+                />
               </div>
 
-              <h3 className="text-lg font-semibold pt-5 pb-3">{project.title}</h3>
-              <div className="flex flex-wrap gap-2 pb-2">
+              <h3 className="text-lg font-semibold pt-2 pb-2">{project.title}</h3>
+
+              <div className="flex flex-wrap gap-2 pb-3">
                 {project.techStack.map((tech, idx) => (
-                  <span key={idx} className="text-xs bg-[#4D4D4D] px-2 py-1 rounded-lg">
+                  <span
+                    key={idx}
+                    className="text-xs bg-[#4D4D4D] px-2 py-1 rounded-lg"
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <ul className="text-sm text-gray-300 list-disc list-inside">
+              <ul className="text-sm text-gray-300 list-disc list-inside pb-4">
                 {project.description.map((item, idx) => (
-                <li className="pb-3" key={idx}>{item}</li>))}
+                  <li className="pb-2" key={idx}>
+                    {item}
+                  </li>
+                ))}
               </ul>
 
-              <div className="absolute bottom-5 left-5 right-5 flex gap-4 justify-between">
+              <div className="flex gap-4 justify-between absolute bottom-5 left-5 right-5">
                 {project.liveLink && (
                   <a
                     href={project.liveLink}
                     target="_blank"
-                    className="text-sm bg-purple-500 py-1 rounded hover:bg-purple-700 w-[120px] text-center"
+                    className="text-sm bg-purple-500 py-1 px-2 rounded hover:bg-purple-700 w-full text-center"
                     rel="noreferrer"
                   >
                     Live Demo
@@ -65,19 +111,22 @@ export default function ProjectCarousel() {
                   <a
                     href={project.githubLink}
                     target="_blank"
-                    className="text-sm bg-gray-700 w-px-3 py-1 rounded hover:bg-gray-900 w-[120px] text-center"
+                    className="text-sm bg-gray-700 py-1 px-2 rounded hover:bg-gray-900 w-full text-center"
                     rel="noreferrer"
                   >
                     GitHub
                   </a>
                 )}
               </div>
-            </div>
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Right Arrow */}
-        <button onClick={handleNext} className="text-white text-2xl hover:text-purple-500">
+        <button
+          onClick={handleNext}
+          className="text-white text-2xl hover:text-purple-500"
+        >
           <FaArrowRight />
         </button>
       </div>

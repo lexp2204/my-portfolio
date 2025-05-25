@@ -15,7 +15,7 @@
     "@vercel/analytics": "^1.5.0",
     "dotenv": "^16.5.0",
     "emailjs-com": "^3.2.0",
-    "framer-motion": "^12.11.4",
+    "framer-motion": "^12.12.2",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-anchor-link-smooth-scroll": "^1.0.12",
